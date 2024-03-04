@@ -1,0 +1,47 @@
+/* h1 {
+    color: pink;
+    font-size: 100px;
+}  */
+/* External */
+
+/* div {
+    width: 60px;
+    height: 60px;
+    background-color: aquamarine;
+}
+
+#div1 {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+}
+
+.a{
+    color: red;
+    font-size: 50px;
+} */
+
+/* .a span {
+    color: pink;
+}
+
+.a > div > span {
+    color: red;
+} */
+
+/* p, span, .b {
+    color: rebeccapurple;
+    font-size: 200px;
+} */
+/* 
+p + span {
+    color: red;
+} */
+
+.btn:hover {
+    background-color: rebeccapurple;
+}
+
+.btn::last-child {
+    background-color: aqua;
+}
