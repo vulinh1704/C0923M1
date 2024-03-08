@@ -1,0 +1,22 @@
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.header {
+   height: 130px;
+}
+
+.header .logo {
+    background-color: blue;
+}
+
+.banner {
+    background-color: red;
+    padding-left: 50px;
+}
+
+.navbar-custom {
+    padding: 0;
+}
