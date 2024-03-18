@@ -76,11 +76,10 @@ public class ProductController extends HttpServlet {
     }
 
     private void addProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
         double price = Double.parseDouble(req.getParameter("price"));
         String image = req.getParameter("image");
-        Product newProduct = new Product(id, name, price, image);
+        Product newProduct = new Product(name, price, image);
         productService.add(newProduct);
         resp.sendRedirect("/products?action=home");
     }

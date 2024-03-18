@@ -14,7 +14,6 @@
 <a href="http://localhost:8080/products?action=home">Trang chủ</a>
 
 <form action="http://localhost:8080/products?action=add" method="post">
-    <input type="number" name="id" placeholder="ID">
     <input type="text" name="name" placeholder="NAME">
     <input type="number" name="price" placeholder="Price">
     <input type="text" name="image" placeholder="IMAGE">
