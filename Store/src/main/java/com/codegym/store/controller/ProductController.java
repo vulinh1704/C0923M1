@@ -1,6 +1,8 @@
 package com.codegym.store.controller;
 
+import com.codegym.store.model.Category;
 import com.codegym.store.model.Product;
+import com.codegym.store.service.CategoryService;
 import com.codegym.store.service.ProductService;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +17,7 @@ import java.util.List;
 @WebServlet(name = "ProductController", value = "/products")
 public class ProductController extends HttpServlet {
     private ProductService productService = new ProductService();
+    private CategoryService categoryService = new CategoryService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,6 +44,8 @@ public class ProductController extends HttpServlet {
     }
 
     public void showFormAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Category> list = this.categoryService.findAll();
+        req.setAttribute("list", list);
         RequestDispatcher dispatcher = req.getRequestDispatcher("product/add.jsp");
         dispatcher.forward(req, resp);
     }
@@ -70,8 +75,8 @@ public class ProductController extends HttpServlet {
         String name = req.getParameter("name");
         double price = Double.parseDouble(req.getParameter("price"));
         String image = req.getParameter("image");
-        Product newProduct = new Product(id, name, price, image);
-        productService.edit(id, newProduct);
+//        Product newProduct = new Product(id, name, price, image,);
+//        productService.edit(id, newProduct);
         resp.sendRedirect("/products?action=home");
     }
 
@@ -79,7 +84,9 @@ public class ProductController extends HttpServlet {
         String name = req.getParameter("name");
         double price = Double.parseDouble(req.getParameter("price"));
         String image = req.getParameter("image");
-        Product newProduct = new Product(name, price, image);
+        int idCategory = Integer.parseInt(req.getParameter("idCategory"));
+        Category category = new Category(idCategory);
+        Product newProduct = new Product(name, price, image, category);
         productService.add(newProduct);
         resp.sendRedirect("/products?action=home");
     }

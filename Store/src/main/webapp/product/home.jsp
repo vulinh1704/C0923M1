@@ -10,12 +10,7 @@
 <html>
 <head>
     <title>Home</title>
-    <style>
-        img {
-            width: 100px;
-            height: 100px;
-        }
-    </style>
+    <link rel="stylesheet" href="<c:url value="/css/home.css"/>">
 </head>
 <body>
 <a href="http://localhost:8080/products?action=add">Thêm mới</a>
@@ -25,6 +20,7 @@
         <td>Name</td>
         <td>Price</td>
         <td>Image</td>
+        <td>Category</td>
         <td colspan="2">Action</td>
     </tr>
     <c:forEach var="item" items="${productList}">
@@ -33,6 +29,7 @@
             <td>${item.name}</td>
             <td>${item.price}</td>
             <td><img src="${item.image}" alt=""></td>
+            <td>${item.category.name}</td>
             <td>
                 <button><a href="http://localhost:8080/products?action=edit&idEdit=${item.id}">Sửa</a></button>
             </td>

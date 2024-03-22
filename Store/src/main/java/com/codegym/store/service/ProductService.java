@@ -1,5 +1,6 @@
 package com.codegym.store.service;
 
+import com.codegym.store.model.Category;
 import com.codegym.store.model.Product;
 
 import java.sql.Connection;
@@ -17,12 +18,13 @@ public class ProductService implements IProductService<Product> {
 
     @Override
     public void add(Product product) {
-        String sql = "insert into product(name, price, image) values (? , ?, ?);";
+        String sql = "insert into product(name, price, image, idCategory) values (?,?, ?, ?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, product.getName());
             preparedStatement.setDouble(2, product.getPrice());
             preparedStatement.setString(3, product.getImage());
+            preparedStatement.setInt(4, product.getCategory().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -31,7 +33,7 @@ public class ProductService implements IProductService<Product> {
 
     @Override
     public List<Product> findAll() {
-        String sql = "select * from product;";
+        String sql = "select product.*, c.name as 'nameCategory' from product join category c on product.idCategory = c.id;";
         List<Product> list = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -41,7 +43,10 @@ public class ProductService implements IProductService<Product> {
                 String name = resultSet.getString("name"); // ca
                 double price = resultSet.getDouble("price"); // 200
                 String image = resultSet.getString("image"); // ...
-                Product product = new Product(id, name, price, image); // product
+                int idCategory = resultSet.getInt("idCategory");
+                String nameCategory = resultSet.getString("nameCategory");
+                Category category = new Category(idCategory, nameCategory);
+                Product product = new Product(id, name, price, image, category); // product
                 list.add(product); // add list
             }
         } catch (SQLException e) {
@@ -77,7 +82,7 @@ public class ProductService implements IProductService<Product> {
 
     @Override
     public Product findById(int id) {
-        String sql = "select * from product where id = ?;";
+        String sql = "select product.*, c.name as 'nameCategory' from product join category c on product.idCategory = c.id where product.id = ?;";
         Product product = null;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -87,7 +92,10 @@ public class ProductService implements IProductService<Product> {
                 String name = resultSet.getString("name");
                 double price = resultSet.getDouble("price");
                 String image = resultSet.getString("image");
-                product = new Product(id,name, price, image);
+                int idCategory = resultSet.getInt("idCategory");
+                String nameCategory = resultSet.getString("nameCategory");
+                Category category = new Category(idCategory, nameCategory);
+                product = new Product(id, name, price, image, category);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Linh
@@ -17,6 +18,11 @@
     <input type="text" name="name" placeholder="NAME">
     <input type="number" name="price" placeholder="Price">
     <input type="text" name="image" placeholder="IMAGE">
+    <select name="idCategory">
+        <c:forEach var="item" items="${list}">
+            <option value="${item.id}">${item.name}</option>
+        </c:forEach>
+    </select>
     <button>Submit</button>
 </form>
 
